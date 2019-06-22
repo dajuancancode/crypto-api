@@ -1,5 +1,6 @@
 const express = require('express')
 const cryptoList = require('./utils/cryptoList')
+const cryptoProfile = require('./utils/cryptoProfile')
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -13,8 +14,13 @@ app.get('/api/list', (req, res) => {
   })
 })
 
-app.get('/api/crypto/:id', (req, res) => {
-  res.send({id: req.params.id})
+app.get('/api/crypto/:symbol', (req, res) => {
+  cryptoProfile(req.params.symbol, (error, data) => {
+    if (error){
+      return res.send({error})
+    }
+    res.send({data})
+  })
 })
 
 app.get('*' , (req, res) => {

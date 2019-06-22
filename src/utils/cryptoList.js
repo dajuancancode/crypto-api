@@ -3,9 +3,9 @@ const axios = require('axios')
 
 
 const url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=10'
-const {API_KEY} = process.env
+const {CRYPTO_API_KEY} = process.env
 
-const headers = {'X-CMC_PRO_API_KEY': API_KEY}
+const headers = {'X-CMC_PRO_API_KEY': CRYPTO_API_KEY}
 
 // Need to send name, symbol, price, percent_change_24h, percent_change_7d
 class CryptoObject {

@@ -7,6 +7,7 @@ The backend is being built with node and express.
 ## ToDo
 
 - [x] Create /api routes
-- [ ] Create utility functions to get the data from the CoinMarketCap api
-- [ ] use axios to fetch the data from the CoinMarketCap api
-- [ ] send the data needed for the app to the route in JSON form
+- [x] Create utility functions to get the data from the CoinMarketCap api
+- [x] use axios to fetch the data from the CoinMarketCap api
+- [x] send the data needed for the app to the route in JSON form
+- [ ] work on generating a 404 page
