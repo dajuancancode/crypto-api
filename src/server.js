@@ -1,12 +1,16 @@
-require('dotenv').config()
-
 const express = require('express')
+const cryptoList = require('./utils/cryptoList')
 
 const app = express()
 const port = process.env.PORT || 3000
 
 app.get('/api/list', (req, res) => {
-  res.send({test: 'Yooo'})
+  cryptoList((error, data) => {
+    if(error){
+      return res.send({error})
+    }
+    res.send({data})
+  })
 })
 
 app.get('/api/crypto/:id', (req, res) => {
