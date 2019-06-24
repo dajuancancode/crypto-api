@@ -9,13 +9,14 @@ const headers = {'X-CMC_PRO_API_KEY': CRYPTO_API_KEY}
 
 // Need to send name, symbol, price, percent_change_24h, percent_change_7d
 class CryptoObject {
-  constructor(id, name, symbol, price, percent_change_24h, percent_change_7d) {
+  constructor(id, name, symbol, price, percent_change_24h, circulating_supply, volume, market_cap) {
     this.id                 = id;
     this.name               = name ;
     this.symbol             = symbol;
     this.price              = price;
-    this.percent_change_24h = percent_change_24h;
-    this.percent_change_7d  = percent_change_7d;
+    this.circulating_supply = circulating_supply
+    this.volume             = volume
+    this.market_cap         = market_cap
   }
 }
 
@@ -26,8 +27,9 @@ const cryptoList = async (callback) => {
     let i = 1
     data.forEach(crypto => {
       let newCrypto = new CryptoObject(
-        i, crypto.name, crypto.symbol, crypto.quote.USD.price,
-        crypto.quote.USD.percent_change_24h, crypto.quote.USD.percent_change_7d
+        i, crypto.name, crypto.symbol, crypto.quote.USD.price.toFixed(2),
+        crypto.quote.USD.percent_change_24h.toFixed(2), 
+        crypto.circulating_supply, crypto.quote.USD.volume_24h, crypto.quote.USD.market_cap
       )
       cryptoArray.push(newCrypto)
       i++
