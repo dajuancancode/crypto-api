@@ -30,7 +30,7 @@ const cryptoList = async (callback) => {
       let newCrypto = new CryptoObject(
         i, crypto.name, crypto.symbol, crypto.quote.USD.price.toFixed(2),
         crypto.quote.USD.percent_change_24h.toFixed(2), 
-        crypto.circulating_supply.toFixed(2), crypto.quote.USD.volume_24h.toFixed(2), crypto.quote.USD.market_cap.toFixed(2)
+        crypto.circulating_supply.toFixed(0), crypto.quote.USD.volume_24h.toFixed(0), crypto.quote.USD.market_cap.toFixed(0)
       )
       cryptoArray.push(newCrypto)
       i++
