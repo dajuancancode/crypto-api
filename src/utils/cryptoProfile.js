@@ -5,10 +5,10 @@ const {CRYPTO_API_KEY, NEWS_API_KEY} = process.env
 const headers = {'X-CMC_PRO_API_KEY': CRYPTO_API_KEY}
 
 class CryptoView {
-  constructor(website, technical_doc, logo, description, news) {
+  constructor(name, website, technical_doc, description, news) {
+    this.name          = name;
     this.website       = website;
     this.technical_doc = technical_doc;
-    this.logo          = logo;
     this.description   = description;
     this.news          = news;
   }
@@ -47,8 +47,8 @@ const cryptoProfile = async (symbol, callback) => {
     })
 
     const newCryptoProfile = new CryptoView(
-      dataSymbol.urls.website[0], dataSymbol.urls.technical_doc[0],
-      dataSymbol.logo, dataSymbol.description, cryptoNewsList
+      dataSymbol.name, dataSymbol.urls.website[0], dataSymbol.urls.technical_doc[0],
+      dataSymbol.description, cryptoNewsList
       )
     callback(undefined, newCryptoProfile)
   }catch(error) {
