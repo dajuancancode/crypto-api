@@ -28,12 +28,15 @@ class NewsArticle {
 const cryptoProfile = async (symbol, callback) => {
   const encodedSymbol = encodeURIComponent(symbol)
   const profileUrl = `https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?symbol=${encodedSymbol}`
-  const newsUrl = `https://newsapi.org/v2/everything?q=${encodedSymbol}&apiKey=${NEWS_API_KEY}&pageSize=3&from=2019-06-01&language=en`
+  
 
   try {
     const {data: {data}} = await axios.get(profileUrl, {headers})
+    const dataSymbol = data[symbol]
+    const dataName = (dataSymbol.name === 'EOS') ? encodeURIComponent('EOS Crypto') : encodeURIComponent(dataSymbol.name)
+    const newsUrl = `https://newsapi.org/v2/everything?q=${dataName}&apiKey=${NEWS_API_KEY}&pageSize=3&from=2019-06-01&language=en`
     const response = await axios.get(newsUrl)
-    const dataSymbol = data[symbol];
+    
     
     let cryptoNewsList = []
 
