@@ -14,9 +14,10 @@ class CryptoObject {
     this.name               = name ;
     this.symbol             = symbol;
     this.price              = price;
-    this.circulating_supply = circulating_supply
-    this.volume             = volume
-    this.market_cap         = market_cap
+    this.percent_change_24h = percent_change_24h;
+    this.circulating_supply = circulating_supply;
+    this.volume             = volume;
+    this.market_cap         = market_cap;
   }
 }
 
