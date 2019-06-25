@@ -34,7 +34,7 @@ const cryptoProfile = async (symbol, callback) => {
     const {data: {data}} = await axios.get(profileUrl, {headers})
     const dataSymbol = data[symbol]
     const dataName = (dataSymbol.name === 'EOS') ? encodeURIComponent('EOS Crypto') : encodeURIComponent(dataSymbol.name)
-    const newsUrl = `https://newsapi.org/v2/everything?q=${dataName}&apiKey=${NEWS_API_KEY}&pageSize=3&from=2019-06-01&language=en`
+    const newsUrl = `https://newsapi.org/v2/everything?q=${dataName}&apiKey=${NEWS_API_KEY}&pageSize=4&language=en`
     const response = await axios.get(newsUrl)
     
     
