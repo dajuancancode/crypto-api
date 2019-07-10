@@ -1,3 +1,4 @@
+const cloudinary = require('cloudinary')
 
 class CryptoObject {
   constructor(id, logo, name, symbol, price, percent_change_24h, circulating_supply, volume, market_cap) {
@@ -16,7 +17,7 @@ class CryptoObject {
 const createCrypto = (i,crypto) => {
   let newCrypto = new CryptoObject(
     i,
-    `https://cryptoicons.org/api/color/${crypto.symbol.toLowerCase()}/32`,
+    cloudinary.image(`cryptoicons/${crypto.symbol.toLowerCase()}.svg`).split("\'")[1],
     crypto.name,
     crypto.symbol,
     crypto.quote.USD.price.toFixed(2),
@@ -25,7 +26,6 @@ const createCrypto = (i,crypto) => {
     crypto.quote.USD.volume_24h.toFixed(0),
     crypto.quote.USD.market_cap.toFixed(0)
   )
-
   return newCrypto
 }
 

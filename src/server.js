@@ -1,9 +1,14 @@
+require('dotenv').config()
+
 const express = require('express')
+const cloudinary = require('cloudinary')
 const cryptoListView = require('./utils/cryptoList')
 const cryptoProfileView = require('./utils/cryptoProfile')
 
 const app = express()
 const port = process.env.PORT || 3000
+
+cloudinary.config()
 
 app.get('/api/list', async (req, res) => {
   try {
