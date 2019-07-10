@@ -17,7 +17,7 @@ class CryptoObject {
 const createCrypto = (i,crypto) => {
   let newCrypto = new CryptoObject(
     i,
-    cloudinary.image(`cryptoicons/${crypto.symbol.toLowerCase()}.svg`).split("\'")[1],
+    cloudinary.image(`cryptoicons/${crypto.symbol.toLowerCase()}`, {format: "png"}),
     crypto.name,
     crypto.symbol,
     crypto.quote.USD.price.toFixed(2),
