@@ -25,38 +25,34 @@ class NewsArticle {
   }
 }
 
-const cryptoProfile = async (symbol, callback) => {
+const cryptoProfile = async (symbol) => {
   const encodedSymbol = encodeURIComponent(symbol)
   const profileUrl = `https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?symbol=${encodedSymbol}`
   
+  const {data: {data}} = await axios.get(profileUrl, {headers})
+  const dataSymbol = data[symbol]
+  const dataName = (dataSymbol.name === 'EOS') ? encodeURIComponent('EOS Crypto') : encodeURIComponent(dataSymbol.name)
+  const newsUrl = `https://newsapi.org/v2/everything?q=${dataName}&apiKey=${NEWS_API_KEY}&pageSize=4&language=en`
+  const {data: {articles}} = await axios.get(newsUrl)
+  
+  
+  let cryptoNewsList = []
 
-  try {
-    const {data: {data}} = await axios.get(profileUrl, {headers})
-    const dataSymbol = data[symbol]
-    const dataName = (dataSymbol.name === 'EOS') ? encodeURIComponent('EOS Crypto') : encodeURIComponent(dataSymbol.name)
-    const newsUrl = `https://newsapi.org/v2/everything?q=${dataName}&apiKey=${NEWS_API_KEY}&pageSize=4&language=en`
-    const response = await axios.get(newsUrl)
-    
-    
-    let cryptoNewsList = []
+  articles.forEach(article => {
+    let newArticle = new NewsArticle(
+      article.title, article.source.name,
+      article.description, article.url,
+      article.urlToImage, article.publishedAt
+    )
+    cryptoNewsList.push(newArticle)
+  })
 
-    response.data.articles.forEach(article => {
-      let newArticle = new NewsArticle(
-        article.title, article.source.name,
-        article.description, article.url,
-        article.urlToImage, article.publishedAt
-      )
-      cryptoNewsList.push(newArticle)
-    })
+  const newCryptoProfile = new CryptoView(
+    dataSymbol.name, dataSymbol.urls.website[0], dataSymbol.urls.technical_doc[0],
+    dataSymbol.description, cryptoNewsList
+  )
 
-    const newCryptoProfile = new CryptoView(
-      dataSymbol.name, dataSymbol.urls.website[0], dataSymbol.urls.technical_doc[0],
-      dataSymbol.description, cryptoNewsList
-      )
-    callback(undefined, newCryptoProfile)
-  }catch(error) {
-    callback(error, undefined)
-  }
+  return newCryptoProfile
 }
 
 module.exports = cryptoProfile

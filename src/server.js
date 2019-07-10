@@ -15,13 +15,13 @@ app.get('/api/list', async (req, res) => {
   }
 })
 
-app.get('/api/crypto/:symbol', (req, res) => {
-  cryptoProfile(req.params.symbol, (error, data) => {
-    if (error){
-      return res.send({error})
-    }
-    res.send({data})
-  })
+app.get('/api/crypto/:symbol', async (req, res) => {
+  try {
+    const cryptoProfile = await cryptoProfileView(req.params.symbol)
+    res.send({cryptoProfile})
+  } catch (e) {
+    res.status(400).send()
+  }
 })
 
 app.get('*' , (req, res) => {
